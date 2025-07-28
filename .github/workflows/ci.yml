@@ -1,11 +1,13 @@
 name: Terraform
 
-
 on:
   push:
     branches:
       - main
   pull_request: {}
+
+env:
+  PROJECT: ${{ secrets.GCP_PROJECT }}
 
 jobs:
   plan:
@@ -18,7 +20,7 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_PROVIDER }}
-          service_account: ${{ secrets.GCP_EMAIL }}
+          service_account: tf-infra@${{ env.PROJECT }}.iam.gserviceaccount.com
 
       - uses: google-github-actions/setup-gcloud@v2
 
@@ -64,7 +66,7 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_PROVIDER }}
-          service_account: ${{ secrets.GCP_EMAIL }}
+          service_account: tf-infra@${{ env.PROJECT }}.iam.gserviceaccount.com
 
       - uses: google-github-actions/setup-gcloud@v2
 

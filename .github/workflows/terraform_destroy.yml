@@ -8,7 +8,7 @@ on:
         required: true
 
 env:
-  TF_VAR_project_id: ${{ secrets.GCP_PROJECT }}
+  PROJECT: ${{ secrets.GCP_PROJECT }}
   TF_BUCKET: ${{ secrets.GCP_PROJECT }}-tfstate
   REGION: europe-west2
 
@@ -24,7 +24,7 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_PROVIDER }}
-          service_account: tf-infra@${{ env.TF_VAR_project_id }}.iam.gserviceaccount.com
+          service_account: tf-infra@${{ env.PROJECT }}.iam.gserviceaccount.com
 
       - uses: google-github-actions/setup-gcloud@v2
 
