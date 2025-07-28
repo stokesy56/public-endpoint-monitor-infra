@@ -45,6 +45,10 @@ if [[ $CMD == "create" ]]; then
   echo "Granting roles/editor and Storage Object Admin…"
   gcloud projects add-iam-policy-binding "$PROJECT_ID" \
     --member="serviceAccount:$SA_EMAIL" --role="roles/editor" --quiet
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member="serviceAccount:$SA_EMAIL" --role="roles/resourcemanager.projectIamAdmin" --quiet
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member="serviceAccount:$SA_EMAIL" --role="roles/iam.serviceAccountAdmin" --quiet
   gsutil iam ch serviceAccount:"$SA_EMAIL":objectAdmin gs://"$BUCKET"
 
 if ! gcloud iam workload-identity-pools describe ${POOL_ID} --location=global >/dev/null 2>&1; then
