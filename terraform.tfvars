@@ -1,0 +1,8 @@
+project_id           = "public-endpoint-monitor"
+region               = "europe-west2"
+cluster_name         = "pem-auto"
+identity_pool_id     = "github-pool"
+service_account_id   = "ci-build"
+service_account_name = "GitHub CI"
+github_repository    = "stokesy56/public-endpoint-monitor-app"
+registry_name        = "public-endpoint-monitor-registry"
