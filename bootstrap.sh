@@ -95,10 +95,6 @@ if [[ $CMD == "destroy" ]]; then
     --role="roles/iam.workloadIdentityUser" \
     --member="principalSet://iam.googleapis.com/${WIP_PATH}/attribute.repository/${OWNER}/${REPO}" --quiet || true
 
-  echo "Removing roles/editor…"
-  gcloud projects remove-iam-policy-binding "$PROJECT_ID" \
-    --member="serviceAccount:$SA_EMAIL" --role="roles/editor" --quiet || true
-
   echo "Deleting service account $SA_EMAIL…"
   gcloud iam service-accounts delete "$SA_EMAIL" --quiet || true
 
