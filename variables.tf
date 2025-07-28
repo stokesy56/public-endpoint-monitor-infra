@@ -16,23 +16,6 @@ variable "identity_pool_id" {
   type = string
 }
 
-variable "identity_pool_name" {
-  type = string
-}
-
-variable "identity_pool_provider_id" {
-  type = string
-}
-
-variable "identity_pool_provider_name" {
-  type = string
-}
-
-variable "oidc_uri" {
-  type    = string
-  default = "https://token.actions.githubusercontent.com"
-}
-
 variable "service_account_id" {
   type = string
 }
