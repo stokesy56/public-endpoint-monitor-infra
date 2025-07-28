@@ -6,6 +6,10 @@ terraform {
       version = "6.45.0"
     }
   }
+  backend "gcs" {
+    bucket = "public-endpoint-monitor-tfstate"
+    prefix = "prod"
+  }
 }
 
 provider "google" {
