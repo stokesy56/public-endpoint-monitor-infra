@@ -41,4 +41,26 @@ resource "helm_release" "argocd" {
       }
     })
   ]
+
+  depends_on = [kubernetes_cluster_role_binding.tf_infra_cluster_admin]
+}
+
+resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
+  metadata {
+    name = "tf-infra-cluster-admin"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+
+  subject {
+    kind      = "User"
+    api_group = "rbac.authorization.k8s.io"
+    name      = "tf-infra@${var.project_id}.iam.gserviceaccount.com"
+  }
+
+  depends_on = [google_container_cluster.autopilot]
 }
