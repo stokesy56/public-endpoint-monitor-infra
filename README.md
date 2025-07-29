@@ -9,6 +9,10 @@ Terraform definitions for **all Google Cloud resources** used by the\
 | **CI Federation** | Workload-Identity Pool **`gh-oidc-pool`** + Provider **`github`** |
 |                    | Service-account **`ci-build@…`**, IAM bindings for:<br>• `roles/artifactregistry.writer` (Project) <br>• `roles/iam.workloadIdentityUser` (SA) |
 | **Runtime** | GKE **Autopilot** cluster **`pem-auto`** (regional) |
+| **GitOps**             | Argo CD installed via Helm release (v8.2.3) into `argocd` namespace  
+|                        | – `crds.install: true`  
+|                        | – ApplicationSet enabled  
+|                        | – Repo injection via `.Values.configs.repositories` 
 
 ---
 
@@ -54,9 +58,7 @@ objects and updates the provider’s repo allow-list.
 
 ---
 
-### Next steps after running `create`
-
-**Add GitHub secrets** to *both* repos:  
+## GitHub secrets 
 
    | Secret | Value |
    |--------|-------|

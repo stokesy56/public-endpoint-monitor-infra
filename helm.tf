@@ -2,6 +2,8 @@ resource "helm_release" "argocd" {
   name             = var.helm_id
   namespace        = var.helm_id
   create_namespace = true
+  force_update     = true
+  atomic           = true
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = var.helm_chart
