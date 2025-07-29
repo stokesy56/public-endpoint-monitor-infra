@@ -9,3 +9,5 @@ data "google_compute_default_service_account" "nodes" {
 data "google_iam_workload_identity_pool" "github_pool" {
   workload_identity_pool_id = var.identity_pool_id
 }
+
+data "google_client_config" "default" {}

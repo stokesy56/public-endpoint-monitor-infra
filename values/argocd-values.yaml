@@ -1,0 +1,24 @@
+# values/argocd-values.yaml
+
+server:
+  ingress:
+    enabled: false
+
+applicationSet:
+  enabled: true
+  installCRDs: true
+
+controller:
+  resources:
+    requests:
+      cpu:    "50m"
+      memory: "128Mi"
+
+repoServer:
+  resources:
+    requests:
+      cpu:    "50m"
+      memory: "128Mi"
+
+dex:
+  enabled: false
