@@ -37,7 +37,7 @@ resource "helm_release" "argocd" {
             type      = "helm"
             enableOCI = "true"
           },
-          "github repository" = {
+          "github-repository" = {
             url  = "https://github.com/${var.github_repository_argo}.git"
             type = "git"
           }
