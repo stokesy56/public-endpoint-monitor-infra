@@ -12,10 +12,6 @@ data "google_iam_workload_identity_pool" "github_pool" {
 
 data "google_client_config" "default" {}
 
-data "http" "platform_app" {
-  url = "https://raw.githubusercontent.com/${var.github_repository_argo}/main/platform/applications.yaml"
-}
-
-data "http" "pem_applicationset" {
-  url = "https://raw.githubusercontent.com/${var.github_repository_argo}/main/platform/pem-applicationset.yaml"
+data "http" "app" {
+  url = "https://raw.githubusercontent.com/${var.github_repository_argo}/refs/heads/main/platform/pem-dev-app.yaml"
 }
