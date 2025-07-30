@@ -29,7 +29,7 @@ resource "google_service_account" "pem_argo_reader" {
   display_name = var.service_account_name_argo
 }
 
-resource "google_project_iam_member" "artifact_registry_admin" {
+resource "google_project_iam_member" "pem_argo_reader" {
   project = var.project_id
   role    = "roles/artifactregistry.reader"
   member  = "serviceAccount:${google_service_account.pem_argo_reader.email}"

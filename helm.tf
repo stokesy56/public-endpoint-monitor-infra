@@ -33,9 +33,13 @@ resource "helm_release" "argocd" {
       configs = {
         repositories = {
           "public-endpoint-monitor-registry" = {
-            url       = "oci://europe-west2-docker.pkg.dev/${var.project_id}/${var.registry_name}"
+            url       = "europe-west2-docker.pkg.dev/${var.project_id}/${var.registry_name}"
             type      = "helm"
             enableOCI = "true"
+          },
+          "github repository" = {
+            url  = "https://github.com/${var.github_repository_argo}.git"
+            type = "git"
           }
         }
       }

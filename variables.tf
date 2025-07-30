@@ -36,6 +36,10 @@ variable "github_repository" {
   type = string
 }
 
+variable "github_repository_argo" {
+  type = string
+}
+
 variable "registry_name" {
   type = string
 }
