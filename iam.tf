@@ -29,13 +29,12 @@ resource "google_service_account" "pem_argo_reader" {
   display_name = var.service_account_name_argo
 }
 
-# resource "google_artifact_registry_repository_iam_member" "reader" {
-#   project    = var.project_id
-#   location   = var.region
-#   repository = var.registry_name
-#   role       = "roles/artifactregistry.reader"
-#   member     = "serviceAccount:${google_service_account.pem_argo_reader.email}"
-# }
+resource "google_project_iam_member" "artifact_registry_admin" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${google_service_account.pem_argo_reader.email}"
+}
+
 
 resource "google_service_account_iam_member" "wif_binding" {
   service_account_id = google_service_account.pem_argo_reader.name
