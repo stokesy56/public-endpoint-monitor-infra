@@ -35,4 +35,6 @@ jobs:
         run: terraform init -backend-config="bucket=$TF_BUCKET"
 
       - name: Terraform destroy
+        env:
+          GOOGLE_IMPERSONATE_SERVICE_ACCOUNT: "tf-infra@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com"
         run: terraform destroy -auto-approve -input=false

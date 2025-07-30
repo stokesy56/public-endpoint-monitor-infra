@@ -30,7 +30,6 @@ resource "google_service_account" "pem_argo_reader" {
 }
 
 resource "google_artifact_registry_repository_iam_member" "reader" {
-  provider   = google
   project    = var.project_id
   location   = var.region
   repository = var.registry_name
