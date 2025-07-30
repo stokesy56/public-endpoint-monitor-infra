@@ -37,4 +37,4 @@ jobs:
       - name: Terraform destroy
         env:
           GOOGLE_IMPERSONATE_SERVICE_ACCOUNT: "tf-infra@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com"
-        run: terraform destroy -auto-approve -input=false
+        run: TF_LOG=DEBUG terraform destroy -auto-approve plan.out 2>&1 | grep -E "(Requesting|Authorization)" -A2
