@@ -78,3 +78,14 @@ To get this password run: (run steps 1 & 2 if necessary for connection)
 
 3. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+
+To run argocd commands locally, after cahnging password, run:
+```bash
+argocd login localhost:8080   --username admin   --password <new-password>   --insecure
+```
+
+
+To restart argocd (in cases of helm updates):
+```bash
+kubectl rollout restart deploy argocd-repo-server -n argocd
+```

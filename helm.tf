@@ -17,7 +17,7 @@ resource "helm_release" "argocd" {
       repoServer = {
         serviceAccount = {
           annotations = {
-            "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
+            "iam.gke.io/gcp-service-account" = "${google_service_account.pem_argo_reader.email}"
           }
         }
       }
@@ -64,4 +64,29 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
 resource "kubernetes_manifest" "app" {
   manifest   = yamldecode(data.http.app.response_body)
   depends_on = [helm_release.argocd]
+}
+
+variable "argocd_namespace" {
+  type    = string
+  default = "argocd"
+}
+
+resource "kubernetes_secret" "oci_registry" {
+  metadata {
+    name      = var.registry_name
+    namespace = var.argocd_namespace
+    labels = {
+      "argocd.argoproj.io/secret-type" = "repository"
+    }
+  }
+
+  binary_data = {
+    url       = base64encode("europe-west2-docker.pkg.dev/${var.project_id}/${var.registry_name}")
+    type      = base64encode("helm")
+    enableOCI = base64encode("true")
+  }
+
+  depends_on = [
+    helm_release.argocd,
+  ]
 }
