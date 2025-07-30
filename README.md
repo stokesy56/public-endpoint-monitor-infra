@@ -65,3 +65,16 @@ objects and updates the provider’s repo allow-list.
    | `GCP_PROJECT` | `<PROJECT_ID>` |
    | `GCP_PROVIDER` | Full provider path, e.g.<br>`projects/<project number>/locations/global/workloadIdentityPools/<workload-pool>/providers/github` |
 
+## ArgoCD
+
+When deployed initially or if re-installed an initial secret is created for admin user.
+To get this password run: (run steps 1 & 2 if necessary for connection)
+```bash
+1. gcloud container clusters get-credentials pem-auto --region europe-west2 --project public-endpoint-monitor
+
+2. kubectl port-forward service/argocd-server -n argocd 8080:443
+
+    and then open the browser on http://localhost:8080 and accept the certificate
+
+3. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```

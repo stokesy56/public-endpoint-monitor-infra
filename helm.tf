@@ -60,3 +60,13 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
 
   depends_on = [google_container_cluster.autopilot]
 }
+
+resource "kubernetes_manifest" "platform_app" {
+  manifest   = yamldecode(data.http.platform_app.body)
+  depends_on = [helm_release.argocd]
+}
+
+resource "kubernetes_manifest" "pem_applicationset" {
+  manifest   = yamldecode(data.http.pem_applicationset.body)
+  depends_on = [helm_release.argocd]
+}
