@@ -13,14 +13,6 @@ resource "helm_release" "argocd" {
     file("${path.module}/values/argocd-values.yaml"),
 
     yamlencode({
-      crds = {
-        install = true
-      }
-
-      applicationSet = {
-        enabled     = true
-        installCRDs = true
-      }
 
       repoServer = {
         serviceAccount = {

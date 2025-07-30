@@ -22,3 +22,8 @@ repoServer:
 
 dex:
   enabled: false
+
+crds:
+  install: true
+
+configs.secret.createSecret: true
