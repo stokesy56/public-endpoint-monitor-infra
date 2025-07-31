@@ -17,6 +17,10 @@ terraform {
       source  = "hashicorp/http"
       version = "3.5.0"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.19.0"
+    }
   }
 }
 
@@ -34,10 +38,8 @@ terraform {
 
 locals {
   cluster_endpoint = google_container_cluster.autopilot.endpoint
-  cluster_ca_cert = base64decode(
-    google_container_cluster.autopilot.master_auth[0].cluster_ca_certificate
-  )
-  auth_token = data.google_client_config.default.access_token
+  cluster_ca_cert  = base64decode(google_container_cluster.autopilot.master_auth[0].cluster_ca_certificate)
+  auth_token       = data.google_client_config.default.access_token
 }
 
 provider "helm" {
@@ -52,4 +54,11 @@ provider "kubernetes" {
   host                   = "https://${local.cluster_endpoint}"
   token                  = local.auth_token
   cluster_ca_certificate = local.cluster_ca_cert
+}
+
+provider "kubectl" {
+  host                   = local.cluster_endpoint
+  cluster_ca_certificate = local.cluster_ca_cert
+  token                  = local.auth_token
+  load_config_file       = false
 }

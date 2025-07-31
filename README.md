@@ -9,10 +9,7 @@ Terraform definitions for **all Google Cloud resources** used by the\
 | **CI Federation** | Workload-Identity Pool **`gh-oidc-pool`** + Provider **`github`** |
 |                    | Service-account **`ci-build@…`**, IAM bindings for:<br>• `roles/artifactregistry.writer` (Project) <br>• `roles/iam.workloadIdentityUser` (SA) |
 | **Runtime** | GKE **Autopilot** cluster **`pem-auto`** (regional) |
-| **GitOps**             | Argo CD installed via Helm release (v8.2.3) into `argocd` namespace  
-|                        | – `crds.install: true`  
-|                        | – ApplicationSet enabled  
-|                        | – Repo injection via `.Values.configs.repositories` 
+| **GitOps**             | Argo CD installed via Helm release (v8.2.3) into `argocd` namespace |
 
 ---
 
@@ -79,7 +76,7 @@ To get this password run: (run steps 1 & 2 if necessary for connection)
 3. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-To run argocd commands locally, after cahnging password, run:
+To run argocd commands locally, after changing password, run:
 ```bash
 argocd login localhost:8080   --username admin   --password <new-password>   --insecure
 ```
