@@ -26,7 +26,7 @@ repoServer:
     args:
     - |
       cd /var/run/docker-credential-gcr
-      wget -qO - https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.1.30/docker-credential-gcr_linux_amd64-2.1.30.tar.gz | tar xz
+      wget -qO - https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.1.8/docker-credential-gcr_linux_amd64-2.1.8.tar.gz | tar xz
       PATH=.:$PATH HOME=/var/run/config docker-credential-gcr configure-docker
       chmod +r /var/run/config/.docker/config.json
     volumeMounts:
