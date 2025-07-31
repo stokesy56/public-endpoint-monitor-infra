@@ -35,4 +35,4 @@ jobs:
         run: terraform init -backend-config="bucket=$TF_BUCKET"
 
       - name: Terraform destroy
-        run: TF_LOG=DEBUG terraform destroy -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
