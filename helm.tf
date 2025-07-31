@@ -29,8 +29,6 @@ resource "helm_release" "argocd" {
             url       = "europe-west2-docker.pkg.dev/${var.project_id}/${var.registry_name}"
             type      = "helm"
             enableOCI = "true"
-            username  = ""
-            password  = ""
           },
           "github-repository" = {
             url  = "https://github.com/${var.github_repository_argo}.git"
