@@ -13,18 +13,24 @@ resource "helm_release" "argocd" {
     file("${path.module}/values/argocd-values.yaml"),
 
     yamlencode({
+
       repoServer = {
         serviceAccount = {
-          create = false
-          name   = kubernetes_service_account.ksa.metadata[0].name
+          create = true
+          annotations = {
+            "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
+          }
         }
       }
+
       configs = {
         repositories = {
           "public-endpoint-monitor-registry" = {
             url       = "europe-west2-docker.pkg.dev/${var.project_id}/${var.registry_name}"
             type      = "helm"
             enableOCI = "true"
+            username  = ""
+            password  = ""
           },
           "github-repository" = {
             url  = "https://github.com/${var.github_repository_argo}.git"
@@ -56,16 +62,6 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
   }
 
   depends_on = [google_container_cluster.autopilot]
-}
-
-resource "kubernetes_service_account" "ksa" {
-  metadata {
-    name      = var.service_account_id_argo
-    namespace = var.helm_id
-    annotations = {
-      "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
-    }
-  }
 }
 
 resource "kubectl_manifest" "pem_dev_app" {
