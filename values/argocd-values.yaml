@@ -27,3 +27,4 @@ crds:
   install: true
 
 configs.secret.createSecret: true
+configs.secret.argocdServerAdminPassword: "$2a$10$SZW7dXFVhVX4wIa0SxIBjeZES26nZBHQLbj3oUfvE9s/D6GtOp5je"
