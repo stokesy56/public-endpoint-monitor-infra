@@ -13,15 +13,6 @@ resource "helm_release" "argocd" {
     file("${path.module}/values/argocd-values.yaml"),
 
     yamlencode({
-
-      repoServer = {
-        serviceAccount = {
-          annotations = {
-            "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
-          }
-        }
-      }
-
       configs = {
         repositories = {
           "public-endpoint-monitor-registry" = {
@@ -59,6 +50,17 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
   }
 
   depends_on = [google_container_cluster.autopilot]
+}
+
+resource "kubernetes_service_account" "ksa" {
+  metadata {
+    name      = var.service_account_id_argo
+    namespace = var.helm_id
+    annotations = {
+      "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
+    }
+  }
+  depends_on = [helm_release.argocd]
 }
 
 resource "kubectl_manifest" "pem_dev_app" {
