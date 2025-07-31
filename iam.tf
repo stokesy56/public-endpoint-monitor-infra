@@ -34,11 +34,5 @@ resource "google_project_iam_member" "pem_argo_reader" {
 resource "google_service_account_iam_member" "wif_binding" {
   service_account_id = google_service_account.pem_argo_reader.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${var.project_id}.svc.id.goog[argocd/${var.service_account_id_argo}]"
-}
-
-resource "google_service_account_iam_member" "argo_reader_token_creator" {
-  service_account_id = google_service_account.pem_argo_reader.name
-  role               = "roles/iam.serviceAccountTokenCreator"
-  member             = "serviceAccount:${google_service_account.pem_argo_reader.email}"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[argocd/argocd-repo-server]"
 }
