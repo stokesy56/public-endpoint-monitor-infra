@@ -17,6 +17,12 @@ resource "google_service_account_iam_member" "ci_wi_user" {
   member             = "principalSet://iam.googleapis.com/projects/${data.google_project.project.number}/locations/global/workloadIdentityPools/${data.google_iam_workload_identity_pool.github_pool.workload_identity_pool_id}/attribute.repository/${var.github_repository}"
 }
 
+resource "google_project_iam_member" "node_sa_artifact_reader" {
+  project = data.google_project.current.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:service-${data.google_project.current.number}@container-engine-robot.iam.gserviceaccount.com"
+}
+
 # argo CD service account
 resource "google_service_account" "pem_argo_reader" {
   project      = var.project_id
