@@ -87,4 +87,6 @@ To restart argocd (in cases of helm updates):
 kubectl -n argocd rollout restart deploy argocd-server
 kubectl -n argocd rollout restart deploy argocd-repo-server
 kubectl -n argocd rollout restart deploy argocd-applicationset-controller
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
