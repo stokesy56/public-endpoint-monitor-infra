@@ -15,10 +15,6 @@ controller:
       memory: "128Mi"
 
 repoServer:
-  resources:
-    requests:
-      cpu:    "50m"
-      memory: "128Mi"
   initContainers:
   - name: download-tools
     image: alpine:3
