@@ -20,7 +20,7 @@ resource "google_service_account_iam_member" "ci_wi_user" {
 resource "google_project_iam_member" "node_sa_artifact_reader" {
   project = data.google_project.current.project_id
   role    = "roles/artifactregistry.reader"
-  member  = "serviceAccount:service-${data.google_project.current.number}@container-engine-robot.iam.gserviceaccount.com"
+  member  = "serviceAccount:${data.google_project.current.number}-compute@developer.gserviceaccount.com"
 }
 
 # argo CD service account
