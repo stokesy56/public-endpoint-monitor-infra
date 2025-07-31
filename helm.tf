@@ -13,6 +13,12 @@ resource "helm_release" "argocd" {
     file("${path.module}/values/argocd-values.yaml"),
 
     yamlencode({
+      repoServer = {
+        serviceAccount = {
+          create = false
+          name   = kubernetes_service_account.ksa.metadata[0].name
+        }
+      }
       configs = {
         repositories = {
           "public-endpoint-monitor-registry" = {
@@ -60,7 +66,6 @@ resource "kubernetes_service_account" "ksa" {
       "iam.gke.io/gcp-service-account" = google_service_account.pem_argo_reader.email
     }
   }
-  depends_on = [helm_release.argocd]
 }
 
 resource "kubectl_manifest" "pem_dev_app" {

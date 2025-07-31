@@ -84,5 +84,7 @@ argocd login localhost:8080   --username admin   --password <new-password>   --i
 
 To restart argocd (in cases of helm updates):
 ```bash
-kubectl rollout restart deploy argocd-repo-server -n argocd
+kubectl -n argocd rollout restart deploy argocd-server
+kubectl -n argocd rollout restart deploy argocd-repo-server
+kubectl -n argocd rollout restart deploy argocd-applicationset-controller
 ```
