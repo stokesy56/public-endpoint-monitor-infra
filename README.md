@@ -1,4 +1,4 @@
-# public-endpoint-monitor – Infrastructure as Code
+# public-endpoint-monitor - Infrastructure as Code
 
 Terraform definitions for **all Google Cloud resources** used by the\
 [public-endpoint-monitor](https://github.com/stokesy56/public-endpoint-monitor-app) application:
@@ -50,7 +50,7 @@ To tear everything down later:
 ./bootstrap.sh destroy <PROJECT_ID> [REGION] [GH_OWNER] [INFRA_REPO] # last three options are optional
 ```
 
-The script is **idempotent** – running `create` again simply skips existing
+The script is **idempotent** - running `create` again simply skips existing
 objects and updates the provider’s repo allow-list.
 
 ---

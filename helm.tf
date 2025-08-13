@@ -62,7 +62,30 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
   depends_on = [google_container_cluster.autopilot]
 }
 
-resource "kubectl_manifest" "pem_dev_app" {
-  yaml_body  = data.http.app.response_body
-  depends_on = [helm_release.argocd]
+resource "kubectl_manifest" "app-of-apps" {
+  yaml_body = <<YAML
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/stokesy56/public-endpoint-monitor-gitops.git
+    targetRevision: main
+    path: apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+YAML
 }
