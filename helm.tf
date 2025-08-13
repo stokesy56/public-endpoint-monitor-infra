@@ -63,7 +63,8 @@ resource "kubernetes_cluster_role_binding" "tf_infra_cluster_admin" {
 }
 
 resource "kubectl_manifest" "app-of-apps" {
-  yaml_body = <<YAML
+  depends_on = [helm_release.argocd]
+  yaml_body  = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
