@@ -78,6 +78,8 @@ spec:
     repoURL: https://github.com/stokesy56/public-endpoint-monitor-gitops.git
     targetRevision: main
     path: apps
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
